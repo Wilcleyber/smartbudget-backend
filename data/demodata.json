@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Salário",
+    "value": 3500.00,
+    "date": "2025-09-10",
+    "type": "entrada"
+  },
+  {
+    "id": 2,
+    "name": "Supermercado",
+    "value": -450.00,
+    "date": "2025-09-12",
+    "type": "saida"
+  },
+  {
+    "id": 3,
+    "name": "Transporte",
+    "value": -200.00,
+    "date": "2025-09-15",
+    "type": "saida"
+  },
+  {
+    "id": 4,
+    "name": "Freelance",
+    "value": 1200.00,
+    "date": "2025-09-20",
+    "type": "entrada"
+  }
+]
