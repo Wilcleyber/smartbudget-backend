@@ -6,3 +6,6 @@ class User(BaseModel):
     password: str
     
 active_users = []
+
+users_data = {}
+
