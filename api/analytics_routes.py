@@ -3,14 +3,19 @@ from models.transaction_model import Transaction
 from models.user_model import users_data
 from datetime import datetime
 from collections import defaultdict
+from crud.transactions import load_demo_data
 
 router = APIRouter(prefix="/api/analytics", tags=["Analytics"])
 
 @router.get("/summary")
 def get_summary(username: str):
-    if username not in users_data:
+    if username == "visitante":
+        transactions = load_demo_data()
+    elif username in users_data:
+        transactions = users_data[username]
+    else:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
-    transactions = users_data[username]
+
     total_receitas = sum(t.value for t in transactions if t.type == "entrada")
     total_despesas = sum(t.value for t in transactions if t.type == "saida")
     saldo = total_receitas - total_despesas
@@ -20,11 +25,16 @@ def get_summary(username: str):
         "saldo_atual": saldo
     }
 
+
 @router.get("/by-category")
 def get_by_category(username: str):
-    if username not in users_data:
+    if username == "visitante":
+        transactions = load_demo_data()
+    elif username in users_data:
+        transactions = users_data[username]
+    else:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
-    transactions = users_data[username]
+
     categorias = defaultdict(float)
     for t in transactions:
         categorias[t.category] += t.value
@@ -32,7 +42,11 @@ def get_by_category(username: str):
 
 @router.get("/monthly")
 def get_monthly(username: str):
-    if username not in users_data:
+    if username == "visitante":
+        transactions = load_demo_data()
+    elif username in users_data:
+        transactions = users_data[username]
+    else:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     transactions = users_data[username]
     meses = defaultdict(lambda: {"receitas": 0, "despesas": 0})
