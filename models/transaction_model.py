@@ -3,8 +3,10 @@ from uuid import UUID
 from datetime import datetime
 
 class Transaction(BaseModel):
-    id: UUID
-    name: str 
-    value: float  
-    date: datetime  
-    type: str   
+    id: str
+    name: str
+    value: float
+    date: str   # formato "YYYY-MM-DD"
+    type: str   # "entrada" ou "saida"
+    category: str
+    description: str
