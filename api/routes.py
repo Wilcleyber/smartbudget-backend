@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
-from uuid import UUID
 
 from models.user_model import active_users
 from models.transaction_model import Transaction
@@ -48,7 +47,7 @@ def post_transaction(username: str, transaction: Transaction):
     return {"message": "Transação adicionada com sucesso."}
 
 @router.delete("/transactions/{id}")
-def delete_transaction_by_id(id: UUID, username: str):
+def delete_transaction_by_id(id: str, username: str):
     if username not in users_data:
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     success = delete_transaction(username, id)

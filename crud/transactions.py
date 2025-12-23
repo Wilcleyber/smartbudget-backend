@@ -1,5 +1,5 @@
 from models.transaction_model import Transaction
-from uuid import uuid4, UUID
+from uuid import uuid4
 from datetime import datetime
 import json
 import os
@@ -10,7 +10,7 @@ def get_all_transactions(user: str):
     return users_data.get(user, [])
 
 def add_transaction(user: str, data: Transaction):
-    data.id = uuid4()
+    data.id = str(uuid4())
     if user not in users_data:
         users_data[user] = []
     users_data[user].append(data)
@@ -25,22 +25,67 @@ def delete_transaction(user: str, id: UUID):
     return len(users_data[user]) < original_length
 
 def load_demo_data():
-
-    file_path = os.path.join("data", "demodata.json")
-    with open(file_path, "r", encoding="utf-8") as f:
-        demo_data = json.load(f)
-
+    demo = [
+        {
+            "name": "Salário",
+            "value": 3000,
+            "date": "2025-06-01",
+            "type": "entrada",
+            "category": "Trabalho",
+            "description": "Salário mensal"
+        },
+        {
+            "name": "Freelance",
+            "value": 800,
+            "date": "2025-06-15",
+            "type": "entrada",
+            "category": "Trabalho",
+            "description": "Projeto extra"
+        },
+        {
+            "name": "Supermercado",
+            "value": 450,
+            "date": "2025-06-10",
+            "type": "saida",
+            "category": "Alimentação",
+            "description": "Compras do mês"
+        },
+        {
+            "name": "Transporte",
+            "value": 200,
+            "date": "2025-06-12",
+            "type": "saida",
+            "category": "Transporte",
+            "description": "Combustível e ônibus"
+        },
+        {
+            "name": "Cinema",
+            "value": 80,
+            "date": "2025-06-20",
+            "type": "saida",
+            "category": "Lazer",
+            "description": "Filme com amigos"
+        },
+        {
+            "name": "Plano de saúde",
+            "value": 300,
+            "date": "2025-06-05",
+            "type": "saida",
+            "category": "Saúde",
+            "description": "Mensalidade"
+        }
+    ]
     transactions = []
-    for item in demo_data:
-        transactions.append(
-            Transaction(
-                id=uuid4(),  # Gera novo UUID para cada transação
-                name=item["name"],
-                value=item["value"],
-                date=datetime.fromisoformat(item["date"]),
-                type=item["type"]
-            )
-        )
+    for item in demo:
+        transactions.append(Transaction(
+            id=str(uuid4()),              # converter UUID para string
+            name=item["name"],
+            value=item["value"],
+            date=item["date"],            # já como string
+            type=item["type"],
+            category=item["category"],    # garantir que existe
+            description=item["description"] # garantir que existe
+        ))
     return transactions
 
 
