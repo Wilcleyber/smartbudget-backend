@@ -15,7 +15,7 @@ def add_transaction(user: str, data: Transaction):
         users_data[user] = []
     users_data[user].append(data)
 
-def delete_transaction(user: str, id: UUID):
+def delete_transaction(user: str, id: str):
     if user not in users_data:
         return False
     
