@@ -1,14 +1,14 @@
 from fastapi import APIRouter, HTTPException
 from typing import List
 
-from models.user_model import active_users
+from models.user_model import active_users, users_data
 from models.transaction_model import Transaction
 from crud.transactions import (
     get_all_transactions,
     add_transaction,
     delete_transaction,
-    users_data,
-    load_demo_data
+    load_demo_data,
+    update_transaction
 )
 
 router = APIRouter()
@@ -45,6 +45,16 @@ def post_transaction(username: str, transaction: Transaction):
         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
     add_transaction(username, transaction)
     return {"message": "Transação adicionada com sucesso."}
+
+
+@router.put("/transactions/{id}")
+def put_transaction(id: str, username: str, transaction: Transaction):
+    if username not in users_data:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+    success = update_transaction(username, id, transaction)
+    if not success:
+        raise HTTPException(status_code=404, detail="Transação não encontrada.")
+    return {"message": "Transação atualizada com sucesso."}
 
 @router.delete("/transactions/{id}")
 def delete_transaction_by_id(id: str, username: str):

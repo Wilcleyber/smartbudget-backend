@@ -1,90 +1,75 @@
 from models.transaction_model import Transaction
 from uuid import uuid4
 from datetime import datetime
-import json
-import os
+import calendar
+from models.user_model import users_data
 
-users_data = {}
 
 def get_all_transactions(user: str):
     return users_data.get(user, [])
 
+
 def add_transaction(user: str, data: Transaction):
-    data.id = str(uuid4())
+    # atribui id apenas se não vier no payload
+    if not data.id:
+        data.id = str(uuid4())
     if user not in users_data:
         users_data[user] = []
     users_data[user].append(data)
 
+
+def update_transaction(user: str, id: str, data: Transaction):
+    if user not in users_data:
+        return False
+    for idx, t in enumerate(users_data[user]):
+        if t.id == id:
+            # preservar o id e substituir os campos
+            data.id = id
+            users_data[user][idx] = data
+            return True
+    return False
+
+
 def delete_transaction(user: str, id: str):
     if user not in users_data:
         return False
-    
+
     original_length = len(users_data[user])
     users_data[user] = [t for t in users_data[user] if t.id != id]
 
     return len(users_data[user]) < original_length
 
 def load_demo_data():
-    demo = [
-        {
-            "name": "Salário",
-            "value": 3000,
-            "date": "2025-06-01",
-            "type": "entrada",
-            "category": "Trabalho",
-            "description": "Salário mensal"
-        },
-        {
-            "name": "Freelance",
-            "value": 800,
-            "date": "2025-06-15",
-            "type": "entrada",
-            "category": "Trabalho",
-            "description": "Projeto extra"
-        },
-        {
-            "name": "Supermercado",
-            "value": 450,
-            "date": "2025-06-10",
-            "type": "saida",
-            "category": "Alimentação",
-            "description": "Compras do mês"
-        },
-        {
-            "name": "Transporte",
-            "value": 200,
-            "date": "2025-06-12",
-            "type": "saida",
-            "category": "Transporte",
-            "description": "Combustível e ônibus"
-        },
-        {
-            "name": "Cinema",
-            "value": 80,
-            "date": "2025-06-20",
-            "type": "saida",
-            "category": "Lazer",
-            "description": "Filme com amigos"
-        },
-        {
-            "name": "Plano de saúde",
-            "value": 300,
-            "date": "2025-06-05",
-            "type": "saida",
-            "category": "Saúde",
-            "description": "Mensalidade"
-        }
+    # gerar datas dinâmicas a partir do mês atual
+    now = datetime.now()
+    # templates com offset de meses e dias desejados
+    demo_templates = [
+        ( -5, 1, "Salário", 3000, "entrada", "Trabalho", "Salário mensal" ),
+        ( -4, 15, "Freelance", 800, "entrada", "Trabalho", "Projeto extra" ),
+        ( -4, 10, "Supermercado", 450, "saida", "Alimentação", "Compras do mês" ),
+        ( -3, 12, "Transporte", 200, "saida", "Transporte", "Combustível e ônibus" ),
+        ( -2, 20, "Cinema", 80, "saida", "Lazer", "Filme com amigos" ),
+        ( -5, 5, "Plano de saúde", 300, "saida", "Saúde", "Mensalidade" ),
     ]
+
     transactions = []
-    for item in demo:
+    for offset_months, day, name, value, ttype, category, desc in demo_templates:
+        # calcular ano/mês com offset
+        month = now.month + offset_months
+        year = now.year + (month - 1) // 12
+        month = ((month - 1) % 12) + 1
+        # ajustar dia para o último dia do mês quando necessário
+        last_day = calendar.monthrange(year, month)[1]
+        d = min(day, last_day)
+        date_str = f"{year:04d}-{month:02d}-{d:02d}"
         transactions.append(Transaction(
-            id=str(uuid4()),              # converter UUID para string
-            name=item["name"],
-            value=item["value"],
-            date=item["date"],            # já como string
-            type=item["type"],
-            category=item["category"],    # garantir que existe
-            description=item["description"] # garantir que existe
+            id=str(uuid4()),
+            name=name,
+            value=value,
+            date=date_str,
+            type=ttype,
+            category=category,
+            description=desc
         ))
     return transactions
 

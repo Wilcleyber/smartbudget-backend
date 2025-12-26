@@ -1,92 +1,50 @@
 [
-  {
-    "id": "1",
-    "name": "Salário",
-    "value": 3000,
-    "date": "2025-06-01",
-    "type": "entrada",
-    "category": "Trabalho",
-    "description": "Salário mensal"
-  },
-  {
-    "id": "2",
-    "name": "Freelance",
-    "value": 800,
-    "date": "2025-06-15",
-    "type": "entrada",
-    "category": "Trabalho",
-    "description": "Projeto extra"
-  },
-  {
-    "id": "3",
-    "name": "Supermercado",
-    "value": 450,
-    "date": "2025-06-10",
-    "type": "saida",
-    "category": "Alimentação",
-    "description": "Compras do mês"
-  },
-  {
-    "id": "4",
-    "name": "Transporte",
-    "value": 200,
-    "date": "2025-06-12",
-    "type": "saida",
-    "category": "Transporte",
-    "description": "Combustível e ônibus"
-  },
-  {
-    "id": "5",
-    "name": "Cinema",
-    "value": 80,
-    "date": "2025-06-20",
-    "type": "saida",
-    "category": "Lazer",
-    "description": "Filme com amigos"
-  },
-  {
-    "id": "6",
-    "name": "Plano de saúde",
-    "value": 300,
-    "date": "2025-06-05",
-    "type": "saida",
-    "category": "Saúde",
-    "description": "Mensalidade"
-  },
-  {
-    "id": "7",
-    "name": "Restaurante",
-    "value": 120,
-    "date": "2025-07-02",
-    "type": "saida",
-    "category": "Alimentação",
-    "description": "Jantar fora"
-  },
-  {
-    "id": "8",
-    "name": "Salário",
-    "value": 3000,
-    "date": "2025-07-01",
-    "type": "entrada",
-    "category": "Trabalho",
-    "description": "Salário mensal"
-  },
-  {
-    "id": "9",
-    "name": "Academia",
-    "value": 100,
-    "date": "2025-07-03",
-    "type": "saida",
-    "category": "Saúde",
-    "description": "Mensalidade academia"
-  },
-  {
-    "id": "10",
-    "name": "Freelance",
-    "value": 500,
-    "date": "2025-07-18",
-    "type": "entrada",
-    "category": "Trabalho",
-    "description": "Projeto rápido"
-  }
+    {
+        "name": "Salário",
+        "value": 3000,
+        "date": "2025-01-01",
+        "type": "entrada",
+        "category": "Trabalho",
+        "description": "Salário mensal"
+    },
+    {
+        "name": "Supermercado",
+        "value": 450,
+        "date": "2025-02-10",
+        "type": "saida",
+        "category": "Alimentação",
+        "description": "Compras do mês"
+    },
+    {
+        "name": "Transporte",
+        "value": 200,
+        "date": "2025-03-05",
+        "type": "saida",
+        "category": "Transporte",
+        "description": "Combustível"
+    },
+    {
+        "name": "Cinema",
+        "value": 80,
+        "date": "2025-04-15",
+        "type": "saida",
+        "category": "Lazer",
+        "description": "Filme"
+    },
+    {
+        "name": "Plano de Saúde",
+        "value": 300,
+        "date": "2025-05-20",
+        "type": "saida",
+        "category": "Saúde",
+        "description": "Mensalidade"
+    },
+    {
+        "name": "Freelance",
+        "value": 1200,
+        "date": "2025-06-25",
+        "type": "entrada",
+        "category": "Trabalho",
+        "description": "Projeto extra"
+    }
 ]

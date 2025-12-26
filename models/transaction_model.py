@@ -1,8 +1,8 @@
 from pydantic import BaseModel
-from datetime import datetime
+from typing import Optional
 
 class Transaction(BaseModel):
-    id: str
+    id: Optional[str] = None
     name: str
     value: float
     date: str   # formato "YYYY-MM-DD"
