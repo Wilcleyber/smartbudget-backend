@@ -10,12 +10,13 @@ def get_all_transactions(user: str):
 
 
 def add_transaction(user: str, data: Transaction):
-    # atribui id apenas se não vier no payload
-    if not data.id:
-        data.id = str(uuid4())
+    # usar cópia para evitar compartilhar a mesma instância entre listas
+    new_tx = data.copy()
+    if not new_tx.id:
+        new_tx.id = str(uuid4())
     if user not in users_data:
         users_data[user] = []
-    users_data[user].append(data)
+    users_data[user].append(new_tx)
 
 
 def update_transaction(user: str, id: str, data: Transaction):
@@ -23,9 +24,10 @@ def update_transaction(user: str, id: str, data: Transaction):
         return False
     for idx, t in enumerate(users_data[user]):
         if t.id == id:
-            # preservar o id e substituir os campos
-            data.id = id
-            users_data[user][idx] = data
+            # preservar o id e substituir os campos usando cópia
+            updated = data.copy()
+            updated.id = id
+            users_data[user][idx] = updated
             return True
     return False
 
