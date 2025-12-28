@@ -1,24 +1,21 @@
 # SmartBudget Backend
 
-Backend desenvolvido em FastAPI para controle de transações financeiras.
+Backend desenvolvido em **FastAPI** para controle de transações financeiras, com foco em simplicidade e análise de dados.
 
-## Funcionalidades
-- Autenticação de usuários
-- CRUD de transações
-- Modo visitante com dados simulados (`demodata.json`)
-- **Novo módulo de análise de dados**:
-  - Resumo geral (receitas, despesas, saldo)
-  - Gastos por categoria
-  - Evolução mensal
-  - Top categorias mais gastas
+## 🚀 Funcionalidades
+- Autenticação minimalista (apenas `username`, sem senha/tokens).
+- CRUD de transações financeiras.
+- Modo visitante com dados simulados (`demodata.json`).
+- Módulo de análise:
+  - Resumo geral (receitas, despesas, saldo).
+  - Gastos por categoria.
+  - Evolução mensal.
 
-## Rodar localmente
-```bash
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-python -m uvicorn main:app --reload
-acesse: http://127.0.0.1:8000/docs
+## 🛠️ Tecnologias
+- Python 3.10+
+- FastAPI
+- Uvicorn
+- Pydantic
 
-## Teste Online
+## Teste Online (API no Render)
 https://smartbudget-backend-zgek.onrender.com\docs
